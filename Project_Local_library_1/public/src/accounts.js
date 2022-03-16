@@ -12,9 +12,33 @@ function sortAccountsByLastName(accounts) {
   });
 }
 
-function getTotalNumberOfBorrows(account, books) {}
+function getTotalNumberOfBorrows(account, books) {
+  const accountId = account.id;
+  let totalBorrows = 0;
+  books.map((book) => {
+    const borrows = book.borrows;
+    if (borrows.find((borrower) => borrower.id === accountId)) {
+      totalBorrows += 1;
+    }
+  });
+  return totalBorrows;
+}
 
-function getBooksPossessedByAccount(account, books, authors) {}
+function getBooksPossessedByAccount(account, books, authors) {
+  const accountId = account.id;
+  let result = [];
+  const possessedBooks = books.filter(
+    (book) => book.borrows[0].id === accountId
+  );
+  possessedBooks.map((book) => {
+    const authorId = book.authorId;
+    const thisAuthor = authors.find((author) => author.id === authorId);
+    book.author = thisAuthor;
+    result.push(book);
+  });
+
+  return result;
+}
 
 module.exports = {
   findAccountById,
