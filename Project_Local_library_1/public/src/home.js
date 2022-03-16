@@ -13,8 +13,8 @@ function getBooksBorrowedCount(books) {
 
 function getMostCommonGenres(books) {
   let allGenres = [];
-  for (let i in books) {
-    const genre = books[i].genre;
+  for (let unit in books) {
+    const genre = books[unit].genre;
 
     if (!allGenres.some((item) => item.name === genre)) {
       allGenres.push({ name: genre, count: 1 });
@@ -33,9 +33,9 @@ function getMostCommonGenres(books) {
 
 function getMostPopularBooks(books) {
   let bookPop = [];
-  for (let i in books) {
-    const borrowsCount = books[i].borrows.length;
-    const bookName = books[i].title;
+  for (let unit in books) {
+    const borrowsCount = books[unit].borrows.length;
+    const bookName = books[unit].title;
     bookPop.push({ name: bookName, count: borrowsCount });
   }
   const sortedBooks = bookPop.sort((a, b) => b.count - a.count);
@@ -44,9 +44,9 @@ function getMostPopularBooks(books) {
 
 function getMostPopularAuthors(books, authors) {
   const mostPopAuthor = [];
-  for (let i in books) {
-    const borrowsCount = books[i].borrows.length;
-    const authorId = books[i].authorId;
+  for (let unit in books) {
+    const borrowsCount = books[unit].borrows.length;
+    const authorId = books[unit].authorId;
     const author = authors.find((author) => author.id === authorId);
     const authorName = `${author.name.first} ${author.name.last}`;
     if (!mostPopAuthor.some((item) => item.name === authorName)) {

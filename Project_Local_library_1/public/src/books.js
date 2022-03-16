@@ -7,12 +7,13 @@ function findBookById(books, id) {
 }
 
 function partitionBooksByBorrowedStatus(books) {
-  const returnedBooks = books.filter(
-    (book) => book.borrows[0].returned === true
-  );
-  const borrowedBooks = books.filter(
-    (book) => book.borrows[0].returned === false
-  );
+  const returnedBooks = books.reduce((acc, book) => {
+    return book.borrows[0].returned === true ? acc.concat(book) : acc;
+  }, []);
+  const borrowedBooks = books.reduce((acc, book) => {
+    return book.borrows[0].returned === false ? acc.concat(book) : acc;
+  }, []);
+
   return [borrowedBooks, returnedBooks];
 }
 
