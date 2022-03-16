@@ -7,12 +7,16 @@ function findBookById(books, id) {
 }
 
 function partitionBooksByBorrowedStatus(books) {
-  const returnedBooks = books.reduce((acc, book) => {
-    return book.borrows[0].returned === true ? acc.concat(book) : acc;
-  }, []);
-  const borrowedBooks = books.reduce((acc, book) => {
-    return book.borrows[0].returned === false ? acc.concat(book) : acc;
-  }, []);
+  // Filter books with reduce
+  const filterBookByReturnStatus = (books, statToCompare) =>
+    books.reduce((acc, book) => {
+      return book.borrows[0].returned === statToCompare
+        ? acc.concat(book)
+        : acc;
+    }, []);
+
+  const returnedBooks = filterBookByReturnStatus(books, true);
+  const borrowedBooks = filterBookByReturnStatus(books, false);
 
   return [borrowedBooks, returnedBooks];
 }
